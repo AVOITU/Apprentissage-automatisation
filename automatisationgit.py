@@ -4,19 +4,21 @@ import tkinter as tk
 from tkinter import simpledialog
 
 def first_configuration():
-    #configure the path to git bash and stock instead the path 1
-    path1=0
-    if path1==0:
-        print("copy-past the git bash path:")
-        git_bash_path=input()
-        with open("automatisationgit.py","r") as git_bash_file:
-            #open automatisation.py to memorize the lines, git_bash_file: name choosen to apply the function 
-            # there's no importance of the name for the execution of the function, just take the same to use the write function
-            lines=git_bash_file.read()
-
-        lines[6]=git_bash_path
-        with open("automatisationgit.py","w") as git_bash_file:
-            git_bash_file.write(lines)
+      #configure the path to git bash and stock it
+    if not os.path.exists("git_bash_path"):
+        try:
+            for root, dirs, files in os.walk("C:"):
+                if "git-bash.exe" in files:
+                    git_bash_path=f"{root}\git-bash.exe"
+                    print(git_bash_path)
+                    with open("git_bash_path","w") as git_bash_file:
+                        git_bash_file.write(git_bash_path)
+                    break
+        except ValueError:                   
+            print("copy-past the git bash path:")
+            git_bash_path=input()
+            with open("git_bash_path","w") as git_bash_file:
+                git_bash_file.write(git_bash_path)
 
 
 def local_path():
@@ -34,5 +36,6 @@ def init():
 def main():
     first_configuration()
     local_path()
+
 
 main()
