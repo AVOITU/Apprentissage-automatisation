@@ -12,22 +12,22 @@ def configuration_file():
         try:
             for root, dirs, files in os.walk('/'):
                 if "git-bash.exe" in files:
-                    git_bash_path=f"{root}\git-bash.exe"
+                    git_bash_path=os.path.join(root, "git-bash.exe")
                     with open("git_bash_path.txt","w") as git_bash_file:
                         git_bash_file.write(git_bash_path)
                     break
-        except ValueError:                   
+        except FileNotFoundError:                   
             print("Git bash not found, verify the installation of the software")
 
 
 def first_configuration():
     #search for a previous file with git bash path, write it if absent, return the path for the continuation of the programm if present
-    if not os.path.exists("git_bash_path.txt"):
-        working_directory()
-        configuration_file()
-    else:
+    if os.path.exists("git_bash_path.txt"):
         with open("git_bash_path.txt","r") as git_bash_file:
             git_bash_path=git_bash_file.read()
+    else:
+        working_directory()
+        configuration_file()
 
     return git_bash_path
 
