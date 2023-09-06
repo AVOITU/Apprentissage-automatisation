@@ -42,6 +42,10 @@ def local_path():
 
     return file_path
 
+def touch(git_bash_path,local_path):
+    file_name=local_path[-1]
+    subprocess.run([git_bash_path,"-c",f"touch '{file_name}'"])
+
 def init(git_bash_path):
     subprocess.run([git_bash_path,"-c","git init"])
 
@@ -79,6 +83,7 @@ def reset(git_bash_path):
 def main():
     git_bash_path=first_configuration()
     file_path=local_path()
+    touch(git_bash_path,file_path)
     first_touch_add_push(git_bash_path,file_path)
     init(git_bash_path)
 
