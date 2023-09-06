@@ -47,13 +47,44 @@ def touch(git_bash_path,local_path):
     subprocess.run([git_bash_path,"-c",f"touch '{file_name}'"])
 
 def init(git_bash_path):
-    subprocess.run([git_bash_path,"-c","git","init"])
+    subprocess.run([git_bash_path,"-c","git init"])
 
+def rename_master(git_bash_path):
+    subprocess.run([git_bash_path,"-c","git branch -M main"])
+
+def link_repo(git_bash_path):
+    print("Enter an URL for your GitHub repository:")
+    URL_repo_github=input()
+    subprocess.run([git_bash_path,"-c",f"git remote add origin '{URL_repo_github}'"])
+    return URL_repo_github
+
+def first_touch_add_push(git_bash_path,local_path):
+    file_name=local_path[-1]
+    subprocess.run([git_bash_path,"-c",f"touch '{file_name}.py'"])
+    subprocess.run([git_bash_path,"-c",f"git add '{file_name}.py'"])
+    subprocess.run([git_bash_path,"-c",f"git push origin '{file_name}.py'"])
+
+def add(git_bash_path):
+
+    file_name=input()
+    subprocess.run([git_bash_path,"-c",f"git add '{file_name}.py'"])
+
+def branch_name(git_bash_path):
+    print("Enter your branch name:")
+    branch=input()
+    subprocess.run([git_bash_path,"-c",f"git branch '{branch}'"])
+
+def stash(git_bash_path):
+    subprocess.run([git_bash_path,"-c",f"git '"])
+
+def reset(git_bash_path):
+    subprocess.run([git_bash_path,"-c",f"git '"])
 
 def main():
     git_bash_path=first_configuration()
     file_path=local_path()
     touch(git_bash_path,file_path)
+    first_touch_add_push(git_bash_path,file_path)
     init(git_bash_path)
 
 
