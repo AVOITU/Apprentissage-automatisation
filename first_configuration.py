@@ -6,6 +6,8 @@ def working_directory():
         if "automatisationgit.py" in files:
             os.chdir(root)
             break
+    
+    return root
 
 
 def configuration_file():
@@ -20,16 +22,24 @@ def configuration_file():
     except FileNotFoundError:                   
         print("Git bash not found, verify the installation of the software")
 
+def local_path():
+    #ask the path from the user to separate it and prepare the command cd to bring git at the right place
+    print("copy-past the path of your local repository")
+    file_path=input()
+    os.chdir(file_path)
+    return file_path
+
 def first_configuration():
     #search for a previous file with git bash path, write it if absent, return the path for the continuation of the programm if present
-    working_directory()
+    root=working_directory()
     if os.path.exists("git_bash_path.txt"):
         with open("git_bash_path.txt","r") as git_bash_file:
             git_bash_path=git_bash_file.read()
     else:
         git_bash_path=configuration_file()
 
-    return git_bash_path
+    file_path=local_path()
+    return root, git_bash_path, file_path
 
-
-first_configuration()
+#delete the # on the folowing line in order to test the file
+#root, git_bash_path, file_path=first_configuration()
