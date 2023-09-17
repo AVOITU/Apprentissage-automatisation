@@ -1,4 +1,5 @@
 import os
+from tkinter import simpledialog
 
 def working_directory():
     #define the working directory because the file created in configuration is not writing with the python file
@@ -20,12 +21,11 @@ def configuration_file():
                     git_bash_file.write(git_bash_path)
                 return git_bash_path
     except FileNotFoundError:                   
-        print("Git bash not found, verify the installation of the software")
+        simpledialog.askstring("Erreur", "Git bash not found, verify the installation of the software")
 
 def local_path():
     #ask the path from the user to separate it and prepare the command cd to bring git at the right place
-    print("copy-past the path of your local repository")
-    file_path=input()
+    file_path=simpledialog.askstring("Local path", "copy-past the path of your local repository")
     os.chdir(file_path)
     return file_path
 
@@ -42,4 +42,5 @@ def first_configuration():
     return root, git_bash_path, file_path
 
 #delete the # on the folowing line in order to test the file
-#root, git_bash_path, file_path=first_configuration()
+if __name__ == "__main__":
+    root, git_bash_path, file_path=first_configuration()

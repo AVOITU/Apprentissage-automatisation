@@ -26,9 +26,9 @@ def link_repo(git_bash_path):
     subprocess.run([git_bash_path,"-c",f"git remote add origin '{URL_repo_github}'>outputlinkrepo.txt"])
     return URL_repo_github
 
-def add(git_bash_path, file_name):
+def add(git_bash_path):
     #in order to stage
-    subprocess.run([git_bash_path,"-c",f"git add . '{file_name}.py'>outputadd.txt"])
+    subprocess.run([git_bash_path,"-c",f"git add .>outputadd.txt"])
 
 def commit(git_bash_path, message_commit):
     #if there is no message commit define by another function before ask it to the user and commit
@@ -52,9 +52,15 @@ def checkout(git_bash_path, branch_checkout):
     #if checkout is precised is another function checkout to this branch otherwise ask the user for the name
     if branch_checkout==0:
         branch_checkout=simpledialog.askstring("Checkout", "Enter your destination branch:")
-        subprocess.run([git_bash_path,"-c",f"git checkout '{branch_checkout}'>outputcheckout.txt"])
+        try:
+            subprocess.run([git_bash_path,"-c",f"git checkout '{branch_checkout}'"], check=True, text=True,universal_newlines=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        except subprocess.CalledProcessError as e:
+             print(f"La commande a échoué avec le message d'erreur : {e.stderr}")
     else:
-        subprocess.run([git_bash_path,"-c",f"git checkout '{branch_checkout}'>outputcheckout.txt"])
+        try:
+            subprocess.run([git_bash_path,"-c",f"git checkout '{branch_checkout}'"], check=True, text=True,universal_newlines=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        except subprocess.CalledProcessError as e:
+             print(f"La commande a échoué avec le message d'erreur : {e.stderr}")
 
     return branch_checkout
 
