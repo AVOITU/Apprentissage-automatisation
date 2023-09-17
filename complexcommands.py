@@ -38,7 +38,7 @@ def update_file(git_bash_path, message_commit):
     file_name=simpledialog.askstring("Update file", "Enter file to update:")
     branch_checkout=file_name
     simplecommands.checkout(git_bash_path, branch_checkout)
-    simplecommands.add(git_bash_path, file_name)
+    simplecommands.add(git_bash_path)
     simplecommands.commit(git_bash_path, message_commit)
     simplecommands.push(git_bash_path, file_name)
 
