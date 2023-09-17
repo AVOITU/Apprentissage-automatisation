@@ -28,7 +28,7 @@ def link_repo(git_bash_path):
 
 def add(git_bash_path, file_name):
     #in order to stage
-    subprocess.run([git_bash_path,"-c",f"git add '{file_name}.py'>outputadd.txt"])
+    subprocess.run([git_bash_path,"-c",f"git add . '{file_name}.py'>outputadd.txt"])
 
 def commit(git_bash_path, message_commit):
     #if there is no message commit define by another function before ask it to the user and commit
