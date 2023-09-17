@@ -8,14 +8,14 @@ branch_checkout=0
 
 def init(git_bash_path):
     #local repository initialisation and rename the master branch in main branch
-    subprocess.run([git_bash_path,"-c","git init"])
-    subprocess.run([git_bash_path,"-c","git branch -M main"])
+    subprocess.run([git_bash_path,"-c","git init>sortieinit.txt"])
+    subprocess.run([git_bash_path,"-c","git branch -M main>sortierename.txt"])
         
 
 def touch(git_bash_path,file_name):
     #create file based on name given by the user, name=["ok"] for test but is usually defined by the branch or the folder
     file_name=file_name[-1]
-    subprocess.run([git_bash_path,"-c",f"touch '{file_name}.py'"])
+    subprocess.run([git_bash_path,"-c",f"touch '{file_name}.py'>sortietouch.txt"])
     with open(f"{file_name}.py","w") as touch_file:
         touch_file.write(f"\ndef():\ndef {file_name}():\n{file_name}()")
     return file_name 
@@ -23,38 +23,38 @@ def touch(git_bash_path,file_name):
 def link_repo(git_bash_path):
     #ask user for the path to the GitHub repository
     URL_repo_github=simpledialog.askstring("Link repo", "Enter an URL for your GitHub repository:")
-    subprocess.run([git_bash_path,"-c",f"git remote add origin '{URL_repo_github}'"])
+    subprocess.run([git_bash_path,"-c",f"git remote add origin '{URL_repo_github}'>sortielinkrepo.txt"])
     return URL_repo_github
 
 def add(git_bash_path, file_name):
     #in order to stage
-    subprocess.run([git_bash_path,"-c",f"git add '{file_name}.py'"])
+    subprocess.run([git_bash_path,"-c",f"git add '{file_name}.py'>sortieadd.txt"])
 
 def commit(git_bash_path, message_commit):
     #if there is no message commit define by another function before ask it to the user and commit
     if not message_commit==0:
-        subprocess.run([git_bash_path, "-c", f'git commit -m "{message_commit}">sortie.txt'])
+        subprocess.run([git_bash_path, "-c", f'git commit -m "{message_commit}">sortiecommit.txt'])
     else :
         message_commit=simpledialog.askstring("Commit", "Enter your commit message:")
-        subprocess.run([git_bash_path, "-c", f'git commit -m "{message_commit}">sortie.txt'])
+        subprocess.run([git_bash_path, "-c", f'git commit -m "{message_commit}">sortiecommit.txt'])
 
 def push(git_bash_path, file_name):
     #to push the files
-    subprocess.run([git_bash_path,"-c",f"git push -u origin '{file_name}'"])
+    subprocess.run([git_bash_path,"-c",f"git push -u origin '{file_name}'>sortiepush.txt"])
 
 def new_branch(git_bash_path):
     #create new branch
     branch_name=simpledialog.askstring("New branch", "Enter your new branch name:")
-    subprocess.run([git_bash_path,"-c",f"git branch '{branch_name}'"])
+    subprocess.run([git_bash_path,"-c",f"git branch '{branch_name}'>sortienewbranch.txt"])
     return branch_name
 
 def checkout(git_bash_path, branch_checkout):
     #if checkout is precised is another function checkout to this branch otherwise ask the user for the name
     if branch_checkout==0:
         branch_checkout=simpledialog.askstring("Checkout", "Enter your destination branch:")
-        subprocess.run([git_bash_path,"-c",f"git checkout '{branch_checkout}'"])
+        subprocess.run([git_bash_path,"-c",f"git checkout '{branch_checkout}'>sortiecheckout.txt"])
     else:
-        subprocess.run([git_bash_path,"-c",f"git checkout '{branch_checkout}'"])
+        subprocess.run([git_bash_path,"-c",f"git checkout '{branch_checkout}'>sortiecheckout.txt"])
 
     return branch_checkout
 
