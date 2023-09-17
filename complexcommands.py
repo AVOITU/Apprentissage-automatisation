@@ -35,7 +35,7 @@ def branch_creation(git_bash_path, branch_checkout):
     simplecommands.first_touch_add_commit_push(git_bash_path, file_name, message_commit)
 
 def update_file(git_bash_path, message_commit):
-    file_name=simpledialog.askstring("Local path", "Enter file to update:")
+    file_name=simpledialog.askstring("Update file", "Enter file to update:")
     branch_checkout=file_name
     simplecommands.checkout(git_bash_path, branch_checkout)
     simplecommands.add(git_bash_path, file_name)
